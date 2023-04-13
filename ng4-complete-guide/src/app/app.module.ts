@@ -1,3 +1,8 @@
+import { LoggingService } from './logging.service';
+import { AuthModule } from './auth/auth.module';
+import { CoreModule } from './core.module';
+import { SharedModule } from './shared/shared.module';
+import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { RecipesModule } from './recipes/recipes.module';
 import { PlaceholderDirective } from './shared/placeholder/placeholder.directive';
 import { AlertComponent } from './shared/alert/alert.component';
@@ -19,37 +24,30 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    ShoppingListComponent,
-    ShoppingEditComponent,
-    DropdownDirective,
-    AuthComponent,
-    LoadingSpinnerComponent,
-    AlertComponent,
-    PlaceholderDirective
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    HttpClientModule,
-    RecipesModule
-  ],
-    providers: [
-        ShoppingListService,
-        RecipeService,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: AuthInterceptorService,
-            multi: true
-        }
+    declarations: [
+        AppComponent,
+        HeaderComponent,
+        // DropdownDirective,
+        // AuthComponent,
+        // LoadingSpinnerComponent,
+        // AlertComponent,
+        // PlaceholderDirective
     ],
-  bootstrap: [AppComponent],
-    entryComponents: [
-        AlertComponent
-    ]
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        // RecipesModule,
+        // AuthModule,
+        // ShoppingListModule,
+        SharedModule,
+        CoreModule
+    ],
+    providers: [
+        // LoggingService
+    ],
+    bootstrap: [AppComponent],
+
 })
 export class AppModule { }
