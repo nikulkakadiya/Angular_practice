@@ -46,7 +46,7 @@ export class AuthComponent implements OnDestroy {
 
         authObs.subscribe(
             resData => {
-                console.log(resData);
+                console.log("hello"+resData);
                 this.isLoading = false;
                 this.router.navigate(['/recipes'])
             },

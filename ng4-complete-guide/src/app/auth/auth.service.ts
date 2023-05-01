@@ -5,6 +5,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
 import { __values } from 'tslib';
+import { environment } from '../../environments/environment'
 
 export interface AuthResponseData {
     kind: string;
@@ -30,7 +31,7 @@ export class AuthService {
 
         return this.http
             .post<AuthResponseData>(
-                'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBlTp9BKRA2jDxdTqlZnOw8uTXSml57U4U',
+                'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + environment.firebaseAPIKey,
                 {
                     email: email,
                     password: password,
@@ -56,7 +57,7 @@ export class AuthService {
     login(email: string, password: string) {
         return this.http
             .post<AuthResponseData>(
-                'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBlTp9BKRA2jDxdTqlZnOw8uTXSml57U4U',
+                'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + environment.firebaseAPIKey,
                 {
                     email: email,
                     password: password,
@@ -135,9 +136,11 @@ export class AuthService {
         expiresIn: number
     ) {
 
-      const expirationDate = new Date(new Date().getTime() + expiresIn * 100);
-      const user = new User(email, userId, token, expirationDate);
-      // console.log("demo",user);
+        console.log('demo', expiresIn);//3600 ml
+        const expirationDate = new Date(new Date().getTime() + expiresIn * 100);
+        // console.log(expirationDate); // timeing data after 6
+        const user = new User(email, userId, token, expirationDate);
+        // console.log("demo",user);
         this.user.next(user);
         this.autoLogout(expiresIn * 100);
         localStorage.setItem('userData', JSON.stringify(user));
